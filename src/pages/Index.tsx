@@ -3,13 +3,13 @@ import ConfettiEffect from "@/components/ConfettiEffect";
 import giftImage from "@/assets/gift-selection.jpg";
 
 const gifts = [
-  { id: 1, name: "Gingerbread Man", reward: "$10 Freeplay", top: "52%", left: "12%", width: "18%", height: "14%" },
-  { id: 2, name: "Candy Cane", reward: "$5 Add-on Next Deposit", top: "62%", left: "72%", width: "16%", height: "14%" },
-  { id: 3, name: "Hot CoCo", reward: "$15 Add-on Next Deposit", top: "68%", left: "8%", width: "18%", height: "14%" },
-  { id: 4, name: "Santa Hat", reward: "25% Match on Next Deposit", top: "22%", left: "72%", width: "18%", height: "14%" },
-  { id: 5, name: "Snowman", reward: "$5 Freeplay", top: "48%", left: "72%", width: "16%", height: "14%" },
-  { id: 6, name: "Christmas Tree", reward: "$3 Freeplay", top: "24%", left: "8%", width: "18%", height: "16%" },
-  { id: 7, name: "The Flash", reward: "50% Bonus on Next Deposit", top: "32%", left: "30%", width: "40%", height: "45%" },
+  { id: 1, name: "Gingerbread Man", reward: "$10 Freeplay", top: "50%", left: "5%", width: "20%", height: "12%" },
+  { id: 2, name: "Candy Cane", reward: "$5 Add-on Next Deposit", top: "58%", left: "75%", width: "20%", height: "15%" },
+  { id: 3, name: "Hot CoCo", reward: "$15 Add-on Next Deposit", top: "65%", left: "5%", width: "20%", height: "15%" },
+  { id: 4, name: "Santa Hat", reward: "25% Match on Next Deposit", top: "18%", left: "72%", width: "22%", height: "15%" },
+  { id: 5, name: "Snowman", reward: "$5 Freeplay", top: "42%", left: "75%", width: "20%", height: "14%" },
+  { id: 6, name: "Christmas Tree", reward: "$3 Freeplay", top: "22%", left: "3%", width: "22%", height: "18%" },
+  { id: 7, name: "The Flash", reward: "50% Bonus on Next Deposit", top: "28%", left: "25%", width: "50%", height: "50%" },
 ];
 
 const LightningBolt = ({ style }: { style: React.CSSProperties }) => (
