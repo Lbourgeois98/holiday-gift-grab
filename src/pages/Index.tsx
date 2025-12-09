@@ -12,14 +12,27 @@ const gifts = [
   { id: 7, name: "The Flash", reward: "50% Bonus on Next Deposit", top: "32%", left: "30%", width: "40%", height: "45%" },
 ];
 
+const LightningBolt = ({ style }: { style: React.CSSProperties }) => (
+  <svg
+    viewBox="0 0 24 24"
+    className="absolute w-12 h-12 md:w-16 md:h-16 text-gold animate-lightning drop-shadow-[0_0_15px_hsl(45_100%_55%)]"
+    style={style}
+    fill="currentColor"
+  >
+    <path d="M13 0L0 14h9v10l13-14h-9z" />
+  </svg>
+);
+
 const Index = () => {
   const [selectedGift, setSelectedGift] = useState<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [hoveredGift, setHoveredGift] = useState<number | null>(null);
+  const [lightningPos, setLightningPos] = useState<{ top: string; left: string } | null>(null);
 
-  const handleSelectGift = (id: number) => {
+  const handleSelectGift = (id: number, top: string, left: string) => {
     if (selectedGift === null) {
       setSelectedGift(id);
+      setLightningPos({ top, left });
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 3000);
     }
@@ -28,24 +41,35 @@ const Index = () => {
   const selectedGiftData = gifts.find(g => g.id === selectedGift);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-start p-2 sm:p-4 md:p-6 overflow-x-hidden">
       {/* Confetti */}
       {showConfetti && <ConfettiEffect />}
 
       {/* Instruction */}
-      <p className="text-muted-foreground mb-4 text-center text-lg">
+      <p className="text-muted-foreground mb-2 sm:mb-4 text-center text-sm sm:text-base md:text-lg px-2">
         {selectedGift === null 
           ? "Tap a gift to reveal your prize! You can only pick ONE! 🎁" 
           : ""}
       </p>
 
-      {/* Main Image Container */}
-      <div className="relative w-full max-w-lg mx-auto">
+      {/* Main Image Container - responsive sizing */}
+      <div className="relative w-full max-w-[95vw] sm:max-w-[85vw] md:max-w-lg lg:max-w-xl mx-auto">
         <img 
           src={giftImage} 
           alt="Instant Gaming - Pick Your Gift" 
-          className="w-full h-auto rounded-2xl shadow-2xl"
+          className="w-full h-auto rounded-xl sm:rounded-2xl shadow-2xl"
         />
+
+        {/* Lightning Bolt Effect */}
+        {lightningPos && (
+          <LightningBolt 
+            style={{ 
+              top: lightningPos.top, 
+              left: lightningPos.left,
+              transform: "translate(-50%, -50%)",
+            }} 
+          />
+        )}
 
         {/* Clickable Hotspots */}
         {gifts.map((gift) => {
@@ -56,18 +80,18 @@ const Index = () => {
           return (
             <button
               key={gift.id}
-              onClick={() => !isDisabled && handleSelectGift(gift.id)}
+              onClick={() => !isDisabled && handleSelectGift(gift.id, gift.top, gift.left)}
               onMouseEnter={() => setHoveredGift(gift.id)}
               onMouseLeave={() => setHoveredGift(null)}
               disabled={isDisabled}
               className={`absolute rounded-full transition-all duration-300 ${
                 isDisabled 
-                  ? "opacity-30 cursor-not-allowed" 
+                  ? "opacity-20 cursor-not-allowed" 
                   : isSelected
-                    ? "ring-4 ring-gold bg-gold/30 animate-pulse"
+                    ? "bg-transparent"
                     : isHovered
-                      ? "bg-gold/40 ring-2 ring-gold scale-110 cursor-pointer"
-                      : "bg-transparent hover:bg-gold/20 cursor-pointer"
+                      ? "bg-ice-blue/30 shadow-[0_0_20px_hsl(195_100%_70%/0.6)] scale-110 cursor-pointer"
+                      : "bg-transparent hover:bg-ice-blue/20 cursor-pointer"
               }`}
               style={{
                 top: gift.top,
@@ -83,29 +107,33 @@ const Index = () => {
         {/* Hover Tooltip */}
         {hoveredGift && selectedGift === null && (
           <div 
-            className="absolute z-20 bg-card/95 backdrop-blur-sm border border-gold rounded-lg px-3 py-2 pointer-events-none shadow-lg"
+            className="absolute z-20 bg-card/95 backdrop-blur-sm border border-gold rounded-lg px-2 py-1 sm:px-3 sm:py-2 pointer-events-none shadow-lg whitespace-nowrap"
             style={{
-              top: `calc(${gifts.find(g => g.id === hoveredGift)?.top} - 12%)`,
+              top: `calc(${gifts.find(g => g.id === hoveredGift)?.top} - 10%)`,
               left: gifts.find(g => g.id === hoveredGift)?.left,
               transform: "translateX(-10%)",
             }}
           >
-            <p className="text-gold font-bold text-sm">{gifts.find(g => g.id === hoveredGift)?.name}</p>
-            <p className="text-snow text-xs">Click to reveal!</p>
+            <p className="text-gold font-bold text-xs sm:text-sm">{gifts.find(g => g.id === hoveredGift)?.name}</p>
+            <p className="text-snow text-[10px] sm:text-xs">Click to reveal!</p>
           </div>
         )}
       </div>
 
       {/* Selected Prize Banner */}
       {selectedGiftData && (
-        <div className="mt-8 text-center animate-fade-in">
-          <div className="inline-block bg-card/90 backdrop-blur-sm border-2 border-gold rounded-2xl px-8 py-6 shadow-[0_0_40px_hsl(45_100%_55%/0.3)]">
-            <p className="text-muted-foreground text-sm mb-2">🎉 You selected</p>
-            <h3 className="font-display text-2xl md:text-3xl text-gold tracking-wide">
+        <div className="mt-4 sm:mt-6 md:mt-8 text-center px-2 w-full max-w-md animate-fade-in">
+          <div className="bg-card/90 backdrop-blur-sm border-2 border-gold rounded-xl sm:rounded-2xl px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 shadow-[0_0_40px_hsl(45_100%_55%/0.3)]">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-xl sm:text-2xl">⚡</span>
+              <p className="text-muted-foreground text-xs sm:text-sm">You selected</p>
+              <span className="text-xl sm:text-2xl">⚡</span>
+            </div>
+            <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-gold tracking-wide">
               {selectedGiftData.name}
             </h3>
-            <p className="text-snow text-xl font-bold mt-2">{selectedGiftData.reward}</p>
-            <p className="text-muted-foreground text-sm mt-4">
+            <p className="text-snow text-lg sm:text-xl font-bold mt-2">{selectedGiftData.reward}</p>
+            <p className="text-muted-foreground text-xs sm:text-sm mt-3 sm:mt-4">
               Present this to claim your reward! 🎄
             </p>
           </div>
