@@ -3,9 +3,9 @@ import ConfettiEffect from "@/components/ConfettiEffect";
 import giftImage from "@/assets/gift-selection.jpg";
 
 const gifts = [
-  { id: 1, name: "Gingerbread Man", reward: "$10 Freeplay", top: "50%", left: "5%", width: "20%", height: "12%" },
-  { id: 2, name: "Candy Cane", reward: "$5 Add-on Next Deposit", top: "58%", left: "75%", width: "20%", height: "15%" },
-  { id: 3, name: "Hot CoCo", reward: "$15 Add-on Next Deposit", top: "65%", left: "5%", width: "20%", height: "15%" },
+  { id: 1, name: "Gingerbread Man", reward: "$10 Freeplay", top: "44%", left: "5%", width: "20%", height: "12%" },
+  { id: 2, name: "Candy Cane", reward: "$5 Add-on Next Deposit", top: "65%", left: "75%", width: "20%", height: "15%" },
+  { id: 3, name: "Hot CoCo", reward: "$15 Add-on Next Deposit", top: "58%", left: "5%", width: "20%", height: "15%" },
   { id: 4, name: "Santa Hat", reward: "25% Match on Next Deposit", top: "18%", left: "72%", width: "22%", height: "15%" },
   { id: 5, name: "Snowman", reward: "$5 Freeplay", top: "42%", left: "75%", width: "20%", height: "14%" },
   { id: 6, name: "Christmas Tree", reward: "$3 Freeplay", top: "22%", left: "3%", width: "22%", height: "18%" },
